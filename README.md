@@ -1,5 +1,15 @@
 # Only structure and config format
 
+## Debug
+
+```bash
+yarn dev
+```
+
+Run and Debug (Ctrl+Shift+D)
+choose: Debug Vite + Chrome
+Start Debugging
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
