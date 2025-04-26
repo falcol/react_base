@@ -1,0 +1,71 @@
+/* Sidebar.css */
+
+/* Toàn bộ Menu */
+.custom-menu {
+  background: #ffffff !important;
+}
+
+/* Group Title (HOME, PROFILE) */
+.custom-menu .ant-menu-item-group-title {
+  font-weight: 700;
+  font-size: 16px;
+  color: #333333;
+  margin-top: 12px;
+}
+
+/* Các item */
+.custom-menu .ant-menu-item {
+  background: transparent !important;
+  margin: 0;
+  padding-left: 24px !important; /* Thụt vào */
+  transition: all 0.2s ease;
+}
+
+/* Link bên trong item */
+.custom-menu .ant-menu-item .custom-link {
+  color: #4ab7bd; /* Xanh ngọc */
+  font-weight: 500;
+  font-size: 15px;
+  transition: all 0.2s ease;
+  padding-left: 10%;
+}
+
+/* Khi hover vào item (bình thường) */
+.custom-menu .ant-menu-item:not(.ant-menu-item-selected):hover {
+  background: transparent !important;
+}
+
+.custom-menu .ant-menu-item:not(.ant-menu-item-selected):hover .custom-link {
+  color: #4ab7bd; /* Đậm hơn */
+  font-weight: 600;
+  font-size: 16px;
+  transform: scale(1.03); /* Phóng to nhẹ */
+}
+
+/* Khi ACTIVE (selected) */
+.custom-menu .ant-menu-item-selected {
+  background: #e0f7fa !important; /* Nền xanh ngọc nhẹ */
+  border-radius: 8px;
+}
+
+/* Link khi active */
+.custom-menu .ant-menu-item-selected .custom-link {
+  color: #4ab7bd !important; /* Chữ xanh ngọc */
+  font-weight: 700;
+}
+
+/* Khi hover vào item đã active */
+.custom-menu .ant-menu-item-selected:hover {
+  background: #e0f7fa !important; /* Không đổi nền */
+}
+
+.custom-menu .ant-menu-item-selected:hover .custom-link {
+  color: #269aa0 !important; /* Không đổi màu chữ */
+  font-weight: 700;
+  transform: scale(1.03); /* Có thể scale nhẹ nếu thích */
+}
+
+/* Tắt hiệu ứng mặc định của Antd khi click */
+.custom-menu .ant-menu-item::after {
+  display: none;
+}
