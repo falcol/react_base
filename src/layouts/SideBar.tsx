@@ -43,6 +43,15 @@ export default function SideBar({ collapsed }: SidebarProps) {
             </Link>
           ),
         },
+        {
+          key: "/coreui",
+          //   icon: <UserOutlined />,
+          label: (
+            <Link to="/coreui" className="custom-link">
+              coreui
+            </Link>
+          ),
+        },
       ],
     },
   ];

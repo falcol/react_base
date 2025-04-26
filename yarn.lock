@@ -351,6 +351,29 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@coreui/coreui@npm:^5.2.0":
+  version: 5.3.2
+  resolution: "@coreui/coreui@npm:5.3.2"
+  peerDependencies:
+    "@popperjs/core": ^2.11.8
+  checksum: 10c0/646d2443ee7cb8df304b1505b51a6bdbfbfb2948c7c9032219f92c362c46e82b4431ede5ab7aed530bd379e6b6ae3d5f4af63763ee309c1f288e26e428d34f04
+  languageName: node
+  linkType: hard
+
+"@coreui/react@npm:^5.5.0":
+  version: 5.5.0
+  resolution: "@coreui/react@npm:5.5.0"
+  dependencies:
+    "@coreui/coreui": "npm:^5.2.0"
+    "@popperjs/core": "npm:^2.11.8"
+    prop-types: "npm:^15.8.1"
+  peerDependencies:
+    react: ">=17"
+    react-dom: ">=17"
+  checksum: 10c0/cce826245ee0cee133bcc03a5332c86fe96d8f1e36b1c20ec268d54d7413c27f81c27865be2940a5697930d8deeafbe9cb978deca0532151fb946a1773b6a233
+  languageName: node
+  linkType: hard
+
 "@emotion/hash@npm:^0.8.0":
   version: 0.8.0
   resolution: "@emotion/hash@npm:0.8.0"
@@ -803,6 +826,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@popperjs/core@npm:^2.11.8":
+  version: 2.11.8
+  resolution: "@popperjs/core@npm:2.11.8"
+  checksum: 10c0/4681e682abc006d25eb380d0cf3efc7557043f53b6aea7a5057d0d1e7df849a00e281cd8ea79c902a35a414d7919621fc2ba293ecec05f413598e0b23d5a1e63
+  languageName: node
+  linkType: hard
+
 "@rc-component/async-validator@npm:^5.0.3":
   version: 5.0.4
   resolution: "@rc-component/async-validator@npm:5.0.4"
@@ -1122,6 +1152,25 @@ __metadata:
     react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
     react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
   checksum: 10c0/51eaf7f90435c536176a02482676eedd059a03ba220ce349a3634c1af6971c110bb0a842d780b646bbec9329372c5efa610026dcdae450bd7c52e1342fa5a154
+  languageName: node
+  linkType: hard
+
+"@tanstack/react-table@npm:^8.21.3":
+  version: 8.21.3
+  resolution: "@tanstack/react-table@npm:8.21.3"
+  dependencies:
+    "@tanstack/table-core": "npm:8.21.3"
+  peerDependencies:
+    react: ">=16.8"
+    react-dom: ">=16.8"
+  checksum: 10c0/85d1d0fcb690ecc011f68a5a61c96f82142e31a0270dcf9cbc699a6f36715b1653fe6ff1518302a6d08b7093351fc4cabefd055a7db3cd8ac01e068956b0f944
+  languageName: node
+  linkType: hard
+
+"@tanstack/table-core@npm:8.21.3":
+  version: 8.21.3
+  resolution: "@tanstack/table-core@npm:8.21.3"
+  checksum: 10c0/40e3560e6d55e07cc047024aa7f83bd47a9323d21920d4adabba8071fd2d21230c48460b26cedf392588f8265b9edc133abb1b0d6d0adf4dae0970032900a8c9
   languageName: node
   linkType: hard
 
@@ -4610,10 +4659,12 @@ __metadata:
     "@ant-design/colors": "npm:^8.0.0"
     "@ant-design/icons": "npm:^6.0.0"
     "@ant-design/v5-patch-for-react-19": "npm:^1.0.3"
+    "@coreui/react": "npm:^5.5.0"
     "@eslint/js": "npm:^9.22.0"
     "@hookform/resolvers": "npm:^5.0.1"
     "@reduxjs/toolkit": "npm:^2.7.0"
     "@tanem/react-nprogress": "npm:^5.0.55"
+    "@tanstack/react-table": "npm:^8.21.3"
     "@types/js-cookie": "npm:^3"
     "@types/node": "npm:^22.14.1"
     "@types/prettier": "npm:^3.0.0"
