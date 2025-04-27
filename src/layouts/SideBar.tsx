@@ -20,10 +20,17 @@ export default function SideBar({ collapsed }: SidebarProps) {
       children: [
         {
           key: "/",
-          //   icon: <HomeOutlined />,
           label: (
             <Link to="/" className="custom-link">
               Home
+            </Link>
+          ),
+        },
+        {
+          key: "/check",
+          label: (
+            <Link to="/check" className="custom-link">
+              check
             </Link>
           ),
         },
@@ -36,7 +43,6 @@ export default function SideBar({ collapsed }: SidebarProps) {
       children: [
         {
           key: "/profile",
-          //   icon: <UserOutlined />,
           label: (
             <Link to="/profile" className="custom-link">
               Profile
@@ -45,10 +51,9 @@ export default function SideBar({ collapsed }: SidebarProps) {
         },
         {
           key: "/coreui",
-          //   icon: <UserOutlined />,
           label: (
             <Link to="/coreui" className="custom-link">
-              coreui
+              CoreUI
             </Link>
           ),
         },
@@ -63,18 +68,30 @@ export default function SideBar({ collapsed }: SidebarProps) {
       collapsedWidth={0}
       trigger={null}
       width={250}
-      style={{ background: "#fff" }}
+      style={{
+        background: "#fff",
+      }}
     >
-      <div className="bo" style={{ height: 64, background: "#fff" }}>
-        <h1>Text</h1>
+      <div
+        style={{
+          height: 64,
+          background: "#fff",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          borderBottom: "2px solid #f0f0f0",
+          borderRight: "0px solid #ffffff !important",
+        }}
+      >
+        <h1 style={{ fontSize: "18px", fontWeight: 600 }}>Logo</h1>
       </div>
       <Menu
+        className="custom-sidebar-menu"
         theme="light"
         mode="inline"
         selectedKeys={[location.pathname]}
         items={menuItems}
-        style={{ borderRight: 0 }}
-        className="custom-menu"
+        style={{ borderRight: 0, boxShadow: "2px 0 8px rgba(0,0,0,0.05)" }}
       />
     </Sider>
   );

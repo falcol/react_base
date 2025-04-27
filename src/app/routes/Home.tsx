@@ -1,4 +1,5 @@
 import CustomButton from "@/components/CustomButton";
+import { useBreadcrumb } from "@/contexts/BreadcrumbContext";
 import { Spin } from "antd";
 
 import { Input, Pagination, Select, Space, Table } from "antd";
@@ -44,6 +45,16 @@ export default function Home() {
 
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+
+  const { setBreadcrumb } = useBreadcrumb();
+
+  useEffect(() => {
+    setBreadcrumb([
+      { title: "Trang chủ" },
+      { title: "Người dùng" },
+      { title: "Danh sách" },
+    ]);
+  }, [setBreadcrumb]);
 
   // Fetch email options
   const fetchEmailOptions = async (page: number, search: string = "") => {

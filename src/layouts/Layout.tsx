@@ -1,3 +1,4 @@
+import { BreadcrumbProvider } from "@/contexts/BreadcrumbContext";
 import { Layout } from "antd";
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
@@ -8,24 +9,50 @@ import SideBar from "./SideBar";
 const { Content } = Layout;
 
 export default function AppLayout() {
-  const [collapsed, setCollapsed] = useState(true); // Default to collapsed
+  const [collapsed, setCollapsed] = useState(true);
 
   const toggleSidebar = () => {
     setCollapsed(!collapsed);
   };
 
   return (
-    <Layout style={{ minHeight: "100vh" }}>
-      <SideBar collapsed={collapsed} />
-      <Layout>
-        <AppHeader collapsed={collapsed} toggleSidebar={toggleSidebar} />
-        <Content
-          style={{ margin: "16px", padding: "16px", background: "#fff" }}
-        >
-          <Outlet />
-        </Content>
-        <AppFooter />
+    <BreadcrumbProvider>
+      <Layout
+        style={{ height: "100vh", overflow: "hidden", background: "#ffffff" }}
+      >
+        <SideBar collapsed={collapsed} />
+        <Layout style={{ flexDirection: "column", overflow: "hidden" }}>
+          <AppHeader collapsed={collapsed} toggleSidebar={toggleSidebar} />
+
+          <Layout
+            style={{
+              flex: 1,
+              overflow: "hidden",
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
+            <Content
+              style={{
+                flex: 1,
+                overflow: "auto",
+                background: "#f8f8f9",
+                borderRadius: "8px",
+                boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+              }}
+            >
+              <div
+                // className="content-container"
+                style={{ margin: "16px", padding: "10px" }}
+              >
+                {/* Content goes here */}
+                <Outlet />
+              </div>
+            </Content>
+            <AppFooter />
+          </Layout>
+        </Layout>
       </Layout>
-    </Layout>
+    </BreadcrumbProvider>
   );
 }
