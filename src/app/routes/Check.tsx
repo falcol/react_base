@@ -116,7 +116,7 @@ const Check = () => {
               <Form.Item
                 label="Test No"
                 name="test_no"
-                labelCol={{ span: 8 }}
+                labelCol={{ span: 5 }}
                 wrapperCol={{ span: 16 }}
               >
                 <Select
@@ -135,7 +135,7 @@ const Check = () => {
               <Form.Item
                 label="Tiêu đề"
                 name="test_title"
-                labelCol={{ span: 8 }}
+                labelCol={{ span: 5 }}
                 wrapperCol={{ span: 16 }}
               >
                 <Input style={{ width: "100%" }} />
@@ -147,7 +147,7 @@ const Check = () => {
               <Form.Item
                 label="Trạng thái"
                 name="approval_stt"
-                labelCol={{ span: 8 }}
+                labelCol={{ span: 5 }}
                 wrapperCol={{ span: 16 }}
               >
                 <Select
@@ -166,7 +166,7 @@ const Check = () => {
               <Form.Item
                 label="Quản lý"
                 name="test_name"
-                labelCol={{ span: 8 }}
+                labelCol={{ span: 5 }}
                 wrapperCol={{ span: 16 }}
               >
                 <Select
@@ -185,7 +185,7 @@ const Check = () => {
               <Form.Item
                 label="Mã khách hàng"
                 name="test_code"
-                labelCol={{ span: 8 }}
+                labelCol={{ span: 5 }}
                 wrapperCol={{ span: 16 }}
               >
                 <Select
@@ -204,7 +204,7 @@ const Check = () => {
               <Form.Item
                 label="Ngày đăng ký"
                 name="register_date"
-                labelCol={{ span: 8 }}
+                labelCol={{ span: 5 }}
                 wrapperCol={{ span: 16 }}
               >
                 <DatePicker.RangePicker style={{ width: "100%" }} />
@@ -217,7 +217,7 @@ const Check = () => {
                 name="test_source"
                 valuePropName="checked"
                 label="Tất cả Test"
-                labelCol={{ span: 8 }}
+                labelCol={{ span: 5 }}
                 wrapperCol={{ span: 16 }}
               >
                 <Checkbox />
@@ -229,7 +229,7 @@ const Check = () => {
               <Form.Item
                 label="Loại Test"
                 name="discussion_category"
-                labelCol={{ span: 8 }}
+                labelCol={{ span: 5 }}
                 wrapperCol={{ span: 16 }}
               >
                 <Select
