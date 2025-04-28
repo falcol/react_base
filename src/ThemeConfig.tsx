@@ -14,6 +14,8 @@ export const bootstrapThemeExtended: ThemeConfig = {
     borderRadius: 6,
     colorLink: "#008b9b",
     colorLinkHover: "#00798a",
+    controlHeight: 38,
+    controlInteractiveSize: 30,
   },
   components: {
     DatePicker: {
@@ -54,6 +56,7 @@ export const bootstrapThemeExtended: ThemeConfig = {
     Checkbox: {
       colorPrimary: "#008b9b",
       colorPrimaryHover: "#00798a",
+      controlHeight: 70,
     },
     Radio: {
       colorPrimary: "#008b9b",
