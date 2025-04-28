@@ -18,6 +18,25 @@ export const bootstrapThemeExtended: ThemeConfig = {
     controlInteractiveSize: 30,
   },
   components: {
+    Menu: {
+      itemColor: "#00798a", // Màu chữ mặc định
+      itemHoverColor: "#008b9b", // Màu chữ hover
+      itemSelectedColor: "#ffffff", // Màu chữ selected (active)
+
+      itemBg: "#ffffff", // Background mặc định
+      itemHoverBg: "transparent", // Nền hover
+      itemSelectedBg: "#008b9b", // Nền khi selected
+
+      itemHeight: 48, // Chiều cao item (12px padding top + bottom + text)
+
+      itemPaddingInline: 24, // Padding left/right khi bình thường
+      collapsedWidth: 80, // Sidebar collapse width (gần giống)
+
+      groupTitleColor: "#000000", // Màu chữ của group title
+      groupTitleFontSize: 20,
+      fontWeightStrong: 1000,
+      linkHoverDecoration: "underline",
+    },
     DatePicker: {
       // Tùy chỉnh cho DatePicker và RangePicker
       // AntD 5.24.8 sử dụng Color System mới
@@ -101,10 +120,22 @@ export const bootstrapThemeExtended: ThemeConfig = {
       handleColor: "#ffffff",
       handleActiveColor: "#ffffff",
     },
-    TimePicker: {
-      activeBorderColor: "#008b9b",
-      hoverBorderColor: "#008b9b",
-      activeShadow: "0 0 0 2px rgba(0, 139, 155, 0.2)",
+    Dropdown: {
+      colorBgElevated: "#ffffff",
+      colorText: "#00798a",
+
+      controlItemBgHover: "rgba(0, 185, 155, 0.1)",
+      controlItemBgActive: "#008b9b",
+      controlItemBgActiveHover: "#00798a",
+    },
+    Pagination: {
+      itemActiveBg: "#008b9b", // background khi active
+      colorText: "#00798a", // màu chữ bình thường
+      colorTextDisabled: "#d9d9d9", // màu chữ disabled
+      colorPrimary: "#ffffff", // màu chữ khi active
+      colorPrimaryHover: "#ffffff", // màu chữ khi hover vào active
+      itemSize: 32, // kích thước item
+      controlHeight: 32, // chiều cao item
     },
   },
 };

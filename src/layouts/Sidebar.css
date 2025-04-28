@@ -1,49 +1,17 @@
-.custom-sidebar-menu {
-  border-right: 0;
-  background: #fff;
-  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
-}
-
+/* Custom font-weight và transition */
 .custom-sidebar-menu .ant-menu-item {
-  font-weight: 500;
-  color: #00b96b; /* Chữ mặc định xanh ngọc nhẹ */
   transition: all 0.3s ease;
 }
 
-/* Hover vào item */
 .custom-sidebar-menu .ant-menu-item:hover {
-  background: transparent !important; /* Không thay đổi nền */
-  color: #009e58 !important; /* Chữ xanh ngọc đậm */
   font-weight: 600;
 }
 
-/* Active (item đang selected) */
+.custom-sidebar-menu .ant-menu-item-active,
 .custom-sidebar-menu .ant-menu-item-selected {
-  background-color: #00b96b !important; /* Nền xanh ngọc đậm */
-  color: #fff !important; /* Chữ trắng đậm */
   font-weight: 600;
 }
 
-/* Khi hover vào item đã active thì giữ nguyên trạng thái */
-.custom-sidebar-menu .ant-menu-item-selected:hover {
-  background-color: #00b96b !important; /* Giữ nền xanh ngọc đậm */
-  color: #fff !important; /* Giữ chữ trắng */
-  font-weight: 600;
-}
-
-/* Tăng padding cho item */
-.custom-sidebar-menu .ant-menu-item {
-  padding: 12px 24px !important;
-}
-
-/* Khi sidebar collapse: padding nhỏ hơn */
 .ant-layout-sider-collapsed .custom-sidebar-menu .ant-menu-item {
-  padding: 12px 16px !important;
-}
-
-.menu-group-title {
-  font-size: 16px;
-  font-weight: 800;
-  color: #000000; /* Chữ xanh ngọc nhẹ */
-  margin-bottom: 8px;
+  padding-inline: 16px !important;
 }
