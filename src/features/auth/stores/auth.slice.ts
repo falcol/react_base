@@ -80,7 +80,9 @@ export const useUserInfoQuery = () => {
     queryKey: ["userInfo"],
     queryFn: getUserInfoApi,
     enabled: !!Cookies.get("accessToken"), // chỉ chạy nếu có token
-    staleTime: 5 * 60 * 1000, // cache 5 phút
+    refetchOnWindowFocus: true, // Gọi lại khi user chuyển tab rồi quay lại
+    refetchOnReconnect: true, // Gọi lại nếu mất mạng rồi có lại
+    staleTime: 0,
     retry: false, // không retry nếu fail (ví dụ token hết hạn)
   });
 };

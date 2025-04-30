@@ -1,6 +1,12 @@
 import { BreadcrumbProvider } from "@/contexts/BreadcrumbContext";
+import {
+  logout,
+  setUser,
+  useUserInfoQuery,
+} from "@/features/auth/stores/auth.slice";
 import { Layout } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { Outlet } from "react-router-dom";
 import AppFooter from "./Footer";
 import AppHeader from "./Header";
@@ -10,6 +16,17 @@ const { Content } = Layout;
 
 export default function AppLayout() {
   const [collapsed, setCollapsed] = useState(true);
+  const dispatch = useDispatch();
+  const { data, error } = useUserInfoQuery();
+
+  useEffect(() => {
+    if (data) {
+      dispatch(setUser(data));
+    }
+    if (error) {
+      dispatch(logout());
+    }
+  }, [data, error]);
 
   const toggleSidebar = () => {
     setCollapsed(!collapsed);
