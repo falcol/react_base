@@ -5,17 +5,28 @@ import Check from "./Check";
 import Coreui from "./Coreui";
 import Home from "./Home";
 import Profile from "./Profile";
+import ProtectedRoute from "./ProtectedRoute";
 
 export default function AppRouter() {
   return (
     <BrowserRouter>
       <Routes>
+        {/* Public route - không cần authentication */}
         <Route path="/login" element={<LoginForm />} />
-        <Route element={<Layout />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/coreui" element={<Coreui />} />
-          <Route path="/check" element={<Check />} />
+
+        {/* Protected routes - cần authentication */}
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <Layout />
+            </ProtectedRoute>
+          }
+        >
+          <Route index element={<Home />} />
+          <Route path="profile" element={<Profile />} />
+          <Route path="coreui" element={<Coreui />} />
+          <Route path="check" element={<Check />} />
         </Route>
       </Routes>
     </BrowserRouter>

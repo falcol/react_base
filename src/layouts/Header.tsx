@@ -1,4 +1,6 @@
 import { useBreadcrumb } from "@/contexts/BreadcrumbContext";
+import { logout } from "@/features/auth/stores/auth.slice";
+import { RootState, store } from "@/stores/store";
 import {
   BellOutlined,
   LockOutlined,
@@ -9,6 +11,7 @@ import {
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import { Badge, Breadcrumb, Button, Dropdown, Layout } from "antd";
+import { useSelector } from "react-redux";
 
 const { Header } = Layout;
 
@@ -19,6 +22,7 @@ interface HeaderProps {
 
 export default function AppHeader({ collapsed, toggleSidebar }: HeaderProps) {
   const { breadcrumb } = useBreadcrumb();
+  const user = useSelector((state: RootState) => state.auth.user);
 
   const items: MenuProps["items"] = [
     { key: "changePassword", icon: <LockOutlined />, label: "Thay mật khẩu" },
@@ -29,6 +33,10 @@ export default function AppHeader({ collapsed, toggleSidebar }: HeaderProps) {
 
   const handleMenuClick: MenuProps["onClick"] = (e) => {
     console.log(`${e.key} clicked`);
+    if (e.key == "logout") {
+      store.dispatch(logout());
+      window.location.href = "/login";
+    }
   };
 
   return (
@@ -87,7 +95,7 @@ export default function AppHeader({ collapsed, toggleSidebar }: HeaderProps) {
             }}
           >
             <UserOutlined />
-            <span>admin</span>
+            <span>{user?.username}</span>
           </div>
         </Dropdown>
       </div>

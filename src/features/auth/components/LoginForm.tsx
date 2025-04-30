@@ -11,20 +11,30 @@ export default function LoginForm() {
 
   const [loading, setLoading] = useState(false);
 
+  // Xử lý đăng nhập
   const handleLogin = async (values: {
     username: string;
     password: string;
   }) => {
-    setLoading(true);
-    await dispatch(login(values));
-    await dispatch(fetchUserInfo());
-    setLoading(false);
+    try {
+      setLoading(true);
+      // 1. Gọi API login và lưu token
+      await dispatch(login(values.username, values.password));
+      // 2. Fetch thông tin user sau khi login thành công
+      await dispatch(fetchUserInfo());
+    } finally {
+      setLoading(false);
+    }
   };
 
+  // Redirect về trang chủ khi đã đăng nhập
   useEffect(() => {
-    if (isAuthenticated) navigate("/");
+    if (isAuthenticated) {
+      navigate("/");
+    }
   }, [isAuthenticated, navigate]);
 
+  // Hiển thị lỗi nếu có
   useEffect(() => {
     if (error) {
       message.error(error);

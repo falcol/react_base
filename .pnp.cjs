@@ -65,6 +65,9 @@ const RAW_RUNTIME_STATE =
           ["react-router-dom", "virtual:592fde0422bfa15704d195d3b4aeda711051b81887901d70a9fd96fe5f6319234bfe7a235d372abc4968a8469c19008bce3bcaab563fe1d9b0a832f1d512dda5#npm:7.5.1"],\
           ["react-transition-group", "virtual:592fde0422bfa15704d195d3b4aeda711051b81887901d70a9fd96fe5f6319234bfe7a235d372abc4968a8469c19008bce3bcaab563fe1d9b0a832f1d512dda5#npm:4.4.5"],\
           ["react_base", "workspace:."],\
+          ["redux", "npm:5.0.1"],\
+          ["redux-persist", "virtual:592fde0422bfa15704d195d3b4aeda711051b81887901d70a9fd96fe5f6319234bfe7a235d372abc4968a8469c19008bce3bcaab563fe1d9b0a832f1d512dda5#npm:6.0.0"],\
+          ["redux-persist-transform-filter", "virtual:592fde0422bfa15704d195d3b4aeda711051b81887901d70a9fd96fe5f6319234bfe7a235d372abc4968a8469c19008bce3bcaab563fe1d9b0a832f1d512dda5#npm:0.0.22"],\
           ["typescript", "patch:typescript@npm%3A5.8.3#optional!builtin<compat/typescript>::version=5.8.3&hash=5786d5"],\
           ["typescript-eslint", "virtual:592fde0422bfa15704d195d3b4aeda711051b81887901d70a9fd96fe5f6319234bfe7a235d372abc4968a8469c19008bce3bcaab563fe1d9b0a832f1d512dda5#npm:8.30.1"],\
           ["vite", "virtual:592fde0422bfa15704d195d3b4aeda711051b81887901d70a9fd96fe5f6319234bfe7a235d372abc4968a8469c19008bce3bcaab563fe1d9b0a832f1d512dda5#npm:6.3.2"],\
@@ -4442,6 +4445,15 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["lodash", [\
+      ["npm:4.17.21", {\
+        "packageLocation": "../.yarn/berry/cache/lodash-npm-4.17.21-6382451519-10c0.zip/node_modules/lodash/",\
+        "packageDependencies": [\
+          ["lodash", "npm:4.17.21"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["lodash.merge", [\
       ["npm:4.6.2", {\
         "packageLocation": "../.yarn/berry/cache/lodash.merge-npm-4.6.2-77cb4416bf-10c0.zip/node_modules/lodash.merge/",\
@@ -6197,7 +6209,7 @@ const RAW_RUNTIME_STATE =
           ["@types/use-sync-external-store", "npm:0.0.6"],\
           ["react", "npm:19.1.0"],\
           ["react-redux", "virtual:592fde0422bfa15704d195d3b4aeda711051b81887901d70a9fd96fe5f6319234bfe7a235d372abc4968a8469c19008bce3bcaab563fe1d9b0a832f1d512dda5#npm:9.2.0"],\
-          ["redux", null],\
+          ["redux", "npm:5.0.1"],\
           ["use-sync-external-store", "virtual:685c5dee924dcda1791e2398bab03e7db03238a4b8250816ca0fea6db4769a2f05297aadf7c49f31566f6ee25f8f5048a0e58f01c6a193ccfcebe7df8dd7401f#npm:1.5.0"]\
         ],\
         "packagePeers": [\
@@ -6371,6 +6383,9 @@ const RAW_RUNTIME_STATE =
           ["react-router-dom", "virtual:592fde0422bfa15704d195d3b4aeda711051b81887901d70a9fd96fe5f6319234bfe7a235d372abc4968a8469c19008bce3bcaab563fe1d9b0a832f1d512dda5#npm:7.5.1"],\
           ["react-transition-group", "virtual:592fde0422bfa15704d195d3b4aeda711051b81887901d70a9fd96fe5f6319234bfe7a235d372abc4968a8469c19008bce3bcaab563fe1d9b0a832f1d512dda5#npm:4.4.5"],\
           ["react_base", "workspace:."],\
+          ["redux", "npm:5.0.1"],\
+          ["redux-persist", "virtual:592fde0422bfa15704d195d3b4aeda711051b81887901d70a9fd96fe5f6319234bfe7a235d372abc4968a8469c19008bce3bcaab563fe1d9b0a832f1d512dda5#npm:6.0.0"],\
+          ["redux-persist-transform-filter", "virtual:592fde0422bfa15704d195d3b4aeda711051b81887901d70a9fd96fe5f6319234bfe7a235d372abc4968a8469c19008bce3bcaab563fe1d9b0a832f1d512dda5#npm:0.0.22"],\
           ["typescript", "patch:typescript@npm%3A5.8.3#optional!builtin<compat/typescript>::version=5.8.3&hash=5786d5"],\
           ["typescript-eslint", "virtual:592fde0422bfa15704d195d3b4aeda711051b81887901d70a9fd96fe5f6319234bfe7a235d372abc4968a8469c19008bce3bcaab563fe1d9b0a832f1d512dda5#npm:8.30.1"],\
           ["vite", "virtual:592fde0422bfa15704d195d3b4aeda711051b81887901d70a9fd96fe5f6319234bfe7a235d372abc4968a8469c19008bce3bcaab563fe1d9b0a832f1d512dda5#npm:6.3.2"],\
@@ -6384,6 +6399,59 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "../.yarn/berry/cache/redux-npm-5.0.1-f8e6b1cb23-10c0.zip/node_modules/redux/",\
         "packageDependencies": [\
           ["redux", "npm:5.0.1"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["redux-persist", [\
+      ["npm:6.0.0", {\
+        "packageLocation": "../.yarn/berry/cache/redux-persist-npm-6.0.0-56dad69feb-10c0.zip/node_modules/redux-persist/",\
+        "packageDependencies": [\
+          ["redux-persist", "npm:6.0.0"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:592fde0422bfa15704d195d3b4aeda711051b81887901d70a9fd96fe5f6319234bfe7a235d372abc4968a8469c19008bce3bcaab563fe1d9b0a832f1d512dda5#npm:6.0.0", {\
+        "packageLocation": "./.yarn/__virtual__/redux-persist-virtual-60c528276b/2/.yarn/berry/cache/redux-persist-npm-6.0.0-56dad69feb-10c0.zip/node_modules/redux-persist/",\
+        "packageDependencies": [\
+          ["@types/react", "npm:19.1.2"],\
+          ["@types/redux", null],\
+          ["react", "npm:19.1.0"],\
+          ["redux", "npm:5.0.1"],\
+          ["redux-persist", "virtual:592fde0422bfa15704d195d3b4aeda711051b81887901d70a9fd96fe5f6319234bfe7a235d372abc4968a8469c19008bce3bcaab563fe1d9b0a832f1d512dda5#npm:6.0.0"]\
+        ],\
+        "packagePeers": [\
+          "@types/react",\
+          "@types/redux",\
+          "react",\
+          "redux"\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["redux-persist-transform-filter", [\
+      ["npm:0.0.22", {\
+        "packageLocation": "../.yarn/berry/cache/redux-persist-transform-filter-npm-0.0.22-75bbad5d41-10c0.zip/node_modules/redux-persist-transform-filter/",\
+        "packageDependencies": [\
+          ["redux-persist-transform-filter", "npm:0.0.22"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:592fde0422bfa15704d195d3b4aeda711051b81887901d70a9fd96fe5f6319234bfe7a235d372abc4968a8469c19008bce3bcaab563fe1d9b0a832f1d512dda5#npm:0.0.22", {\
+        "packageLocation": "./.yarn/__virtual__/redux-persist-transform-filter-virtual-bbcad96d72/2/.yarn/berry/cache/redux-persist-transform-filter-npm-0.0.22-75bbad5d41-10c0.zip/node_modules/redux-persist-transform-filter/",\
+        "packageDependencies": [\
+          ["@types/redux", null],\
+          ["@types/redux-persist", null],\
+          ["lodash", "npm:4.17.21"],\
+          ["redux", "npm:5.0.1"],\
+          ["redux-persist", "virtual:592fde0422bfa15704d195d3b4aeda711051b81887901d70a9fd96fe5f6319234bfe7a235d372abc4968a8469c19008bce3bcaab563fe1d9b0a832f1d512dda5#npm:6.0.0"],\
+          ["redux-persist-transform-filter", "virtual:592fde0422bfa15704d195d3b4aeda711051b81887901d70a9fd96fe5f6319234bfe7a235d372abc4968a8469c19008bce3bcaab563fe1d9b0a832f1d512dda5#npm:0.0.22"]\
+        ],\
+        "packagePeers": [\
+          "@types/redux-persist",\
+          "@types/redux",\
+          "redux-persist",\
+          "redux"\
         ],\
         "linkType": "HARD"\
       }]\
