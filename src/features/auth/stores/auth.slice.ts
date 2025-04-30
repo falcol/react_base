@@ -1,5 +1,5 @@
 // src/features/auth/stores/auth.slice.ts
-import type { AppDispatch } from "@/stores/types"; // ✅ OK
+import type { AppDispatch } from "@/stores/store"; // ✅ OK
 import { axiosPrivate, axiosPublic } from "@lib/axios";
 import { createSlice } from "@reduxjs/toolkit";
 import Cookies from "js-cookie";

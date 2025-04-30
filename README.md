@@ -1,4 +1,10 @@
-# Only structure and config format
+# Simple auth, refresh, layout with antd
+
+Backend
+
+```bash
+https://github.com/falcol/django_api
+```
 
 ## Debug
 
