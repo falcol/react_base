@@ -1,7 +1,12 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 html,
-body,
-#root {
-  height: 100%;
+body {
   margin: 0;
-  overflow: hidden; /* Không cho body tự scroll */
+  padding: 0;
+  height: 100%;
 }

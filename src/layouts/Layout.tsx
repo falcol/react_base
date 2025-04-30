@@ -35,7 +35,8 @@ export default function AppLayout() {
             <Content
               style={{
                 flex: 1,
-                overflow: "auto",
+                overflowY: "auto", // Chỉ cho phép cuộn dọc
+                overflowX: "hidden", // Ngăn cuộn ngang
                 background: "#f8f8f9",
                 borderRadius: "8px",
                 boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
@@ -43,7 +44,12 @@ export default function AppLayout() {
             >
               <div
                 // className="content-container"
-                style={{ margin: "16px", padding: "10px" }}
+                style={{
+                  margin: "16px",
+                  padding: "10px",
+                  maxWidth: "100%", // Giới hạn chiều rộng
+                  boxSizing: "border-box", // Đảm bảo padding không làm tăng chiều rộng
+                }}
               >
                 {/* Content goes here */}
                 <Outlet />
