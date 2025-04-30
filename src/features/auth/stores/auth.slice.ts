@@ -1,8 +1,10 @@
 // src/features/auth/stores/auth.slice.ts
 import type { AppDispatch } from "@/stores/store"; // ✅ OK
-import { axiosPrivate, axiosPublic } from "@lib/axios";
+import { axiosPublic } from "@lib/axios";
 import { createSlice } from "@reduxjs/toolkit";
+import { useQuery } from "@tanstack/react-query";
 import Cookies from "js-cookie";
+import { getUserInfoApi } from "../api/api.auth";
 
 export interface User {
   id: number;
@@ -73,14 +75,12 @@ export const login =
     }
   };
 
-export const fetchUserInfo = () => async (dispatch: AppDispatch) => {
-  try {
-    const token = Cookies.get("accessToken");
-    if (!token) return dispatch(logout());
-
-    const res = await axiosPrivate.get("/me");
-    dispatch(setUser(res.data));
-  } catch (err: any) {
-    dispatch(logout());
-  }
+export const useUserInfoQuery = () => {
+  return useQuery({
+    queryKey: ["userInfo"],
+    queryFn: getUserInfoApi,
+    enabled: !!Cookies.get("accessToken"), // chỉ chạy nếu có token
+    staleTime: 5 * 60 * 1000, // cache 5 phút
+    retry: false, // không retry nếu fail (ví dụ token hết hạn)
+  });
 };

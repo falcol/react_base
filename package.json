@@ -17,6 +17,7 @@
     "@hookform/resolvers": "^5.0.1",
     "@reduxjs/toolkit": "^2.7.0",
     "@tanem/react-nprogress": "^5.0.55",
+    "@tanstack/react-query": "^5.74.11",
     "@tanstack/react-table": "^8.21.3",
     "antd": "^5.24.8",
     "axios": "^1.8.4",

@@ -2,7 +2,7 @@ import { useAppDispatch, useAppSelector } from "@hooks/redux.hooks";
 import { Button, Card, Form, Input, message } from "antd";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { fetchUserInfo, login } from "../stores/auth.slice";
+import { login } from "../stores/auth.slice";
 
 export default function LoginForm() {
   const dispatch = useAppDispatch();
@@ -21,7 +21,7 @@ export default function LoginForm() {
       // 1. Gọi API login và lưu token
       await dispatch(login(values.username, values.password));
       // 2. Fetch thông tin user sau khi login thành công
-      await dispatch(fetchUserInfo());
+      // await dispatch(fetchUserInfo());
     } finally {
       setLoading(false);
     }

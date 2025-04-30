@@ -12,6 +12,7 @@ import "./index.css";
 import { bootstrapThemeExtended } from "./ThemeConfig"; // Import cấu hình theme
 
 import { persistor, store } from "@/stores/store";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { PersistGate } from "redux-persist/integration/react";
 
 setLogoutCallback(() => {
@@ -19,14 +20,18 @@ setLogoutCallback(() => {
   window.location.href = "/login";
 });
 
+const queryClient = new QueryClient();
+
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <ConfigProvider theme={bootstrapThemeExtended}>
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <App />
-        </PersistGate>
-      </Provider>
-    </ConfigProvider>
+    <QueryClientProvider client={queryClient}>
+      <ConfigProvider theme={bootstrapThemeExtended}>
+        <Provider store={store}>
+          <PersistGate loading={null} persistor={persistor}>
+            <App />
+          </PersistGate>
+        </Provider>
+      </ConfigProvider>
+    </QueryClientProvider>
   </StrictMode>,
 );

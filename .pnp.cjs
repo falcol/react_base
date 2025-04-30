@@ -36,6 +36,7 @@ const RAW_RUNTIME_STATE =
           ["@hookform/resolvers", "virtual:592fde0422bfa15704d195d3b4aeda711051b81887901d70a9fd96fe5f6319234bfe7a235d372abc4968a8469c19008bce3bcaab563fe1d9b0a832f1d512dda5#npm:5.0.1"],\
           ["@reduxjs/toolkit", "virtual:592fde0422bfa15704d195d3b4aeda711051b81887901d70a9fd96fe5f6319234bfe7a235d372abc4968a8469c19008bce3bcaab563fe1d9b0a832f1d512dda5#npm:2.7.0"],\
           ["@tanem/react-nprogress", "virtual:592fde0422bfa15704d195d3b4aeda711051b81887901d70a9fd96fe5f6319234bfe7a235d372abc4968a8469c19008bce3bcaab563fe1d9b0a832f1d512dda5#npm:5.0.55"],\
+          ["@tanstack/react-query", "virtual:592fde0422bfa15704d195d3b4aeda711051b81887901d70a9fd96fe5f6319234bfe7a235d372abc4968a8469c19008bce3bcaab563fe1d9b0a832f1d512dda5#npm:5.74.11"],\
           ["@tanstack/react-table", "virtual:592fde0422bfa15704d195d3b4aeda711051b81887901d70a9fd96fe5f6319234bfe7a235d372abc4968a8469c19008bce3bcaab563fe1d9b0a832f1d512dda5#npm:8.21.3"],\
           ["@types/js-cookie", "npm:3.0.6"],\
           ["@types/node", "npm:22.14.1"],\
@@ -1716,6 +1717,38 @@ const RAW_RUNTIME_STATE =
           "@types/react-dom",\
           "@types/react",\
           "react-dom",\
+          "react"\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@tanstack/query-core", [\
+      ["npm:5.74.9", {\
+        "packageLocation": "../.yarn/berry/cache/@tanstack-query-core-npm-5.74.9-6b2b65ebcb-10c0.zip/node_modules/@tanstack/query-core/",\
+        "packageDependencies": [\
+          ["@tanstack/query-core", "npm:5.74.9"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@tanstack/react-query", [\
+      ["npm:5.74.11", {\
+        "packageLocation": "../.yarn/berry/cache/@tanstack-react-query-npm-5.74.11-87a8c3352a-10c0.zip/node_modules/@tanstack/react-query/",\
+        "packageDependencies": [\
+          ["@tanstack/react-query", "npm:5.74.11"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:592fde0422bfa15704d195d3b4aeda711051b81887901d70a9fd96fe5f6319234bfe7a235d372abc4968a8469c19008bce3bcaab563fe1d9b0a832f1d512dda5#npm:5.74.11", {\
+        "packageLocation": "./.yarn/__virtual__/@tanstack-react-query-virtual-0df7d1c709/2/.yarn/berry/cache/@tanstack-react-query-npm-5.74.11-87a8c3352a-10c0.zip/node_modules/@tanstack/react-query/",\
+        "packageDependencies": [\
+          ["@tanstack/query-core", "npm:5.74.9"],\
+          ["@tanstack/react-query", "virtual:592fde0422bfa15704d195d3b4aeda711051b81887901d70a9fd96fe5f6319234bfe7a235d372abc4968a8469c19008bce3bcaab563fe1d9b0a832f1d512dda5#npm:5.74.11"],\
+          ["@types/react", "npm:19.1.2"],\
+          ["react", "npm:19.1.0"]\
+        ],\
+        "packagePeers": [\
+          "@types/react",\
           "react"\
         ],\
         "linkType": "HARD"\
@@ -6354,6 +6387,7 @@ const RAW_RUNTIME_STATE =
           ["@hookform/resolvers", "virtual:592fde0422bfa15704d195d3b4aeda711051b81887901d70a9fd96fe5f6319234bfe7a235d372abc4968a8469c19008bce3bcaab563fe1d9b0a832f1d512dda5#npm:5.0.1"],\
           ["@reduxjs/toolkit", "virtual:592fde0422bfa15704d195d3b4aeda711051b81887901d70a9fd96fe5f6319234bfe7a235d372abc4968a8469c19008bce3bcaab563fe1d9b0a832f1d512dda5#npm:2.7.0"],\
           ["@tanem/react-nprogress", "virtual:592fde0422bfa15704d195d3b4aeda711051b81887901d70a9fd96fe5f6319234bfe7a235d372abc4968a8469c19008bce3bcaab563fe1d9b0a832f1d512dda5#npm:5.0.55"],\
+          ["@tanstack/react-query", "virtual:592fde0422bfa15704d195d3b4aeda711051b81887901d70a9fd96fe5f6319234bfe7a235d372abc4968a8469c19008bce3bcaab563fe1d9b0a832f1d512dda5#npm:5.74.11"],\
           ["@tanstack/react-table", "virtual:592fde0422bfa15704d195d3b4aeda711051b81887901d70a9fd96fe5f6319234bfe7a235d372abc4968a8469c19008bce3bcaab563fe1d9b0a832f1d512dda5#npm:8.21.3"],\
           ["@types/js-cookie", "npm:3.0.6"],\
           ["@types/node", "npm:22.14.1"],\
