@@ -1,11 +1,13 @@
-import { Button, Card, DatePicker, Form, Input, Row, Col } from "antd";
-import { useSearchParams } from "react-router-dom";
-import { useCallback, useMemo } from "react";
-import SelectWithSearch from "../components/SelectWithSearch";
-import SearchTable from "../components/SearchTable";
-import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Button, Card, Col, DatePicker, Form, Input, Row } from "antd";
+import { useCallback, useEffect, useMemo } from "react";
+import { Controller, useForm } from "react-hook-form";
+import { useSearchParams } from "react-router-dom";
 import { z } from "zod";
+import { searchApi } from "../api/api.search";
+import { selectApi } from "../api/api.select";
+import SearchTable from "../components/SearchTable";
+import SelectWithSearch from "../components/SelectWithSearch";
 
 const searchSchema = z.object({
   application_no: z.string().optional(),
@@ -30,41 +32,17 @@ const columns = [
     dataIndex: "application_no",
     key: "application_no",
   },
-  {
-    title: "Title",
-    dataIndex: "title",
-    key: "title",
-  },
-  {
-    title: "Status",
-    dataIndex: "status",
-    key: "status",
-  },
-  {
-    title: "Manager",
-    dataIndex: "manager",
-    key: "manager",
-  },
-  {
-    title: "Customer Code",
-    dataIndex: "customer_code",
-    key: "customer_code",
-  },
-  {
-    title: "Register Date",
-    dataIndex: "register_date",
-    key: "register_date",
-  },
-  {
-    title: "Category",
-    dataIndex: "category",
-    key: "category",
-  },
+  { title: "Title", dataIndex: "title", key: "title" },
+  { title: "Status", dataIndex: "status", key: "status" },
+  { title: "Manager", dataIndex: "manager", key: "manager" },
+  { title: "Customer Code", dataIndex: "customer_code", key: "customer_code" },
+  { title: "Register Date", dataIndex: "register_date", key: "register_date" },
+  { title: "Category", dataIndex: "category", key: "category" },
 ];
 
 export default function SearchPage() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const { control, handleSubmit, watch } = useForm<SearchFormData>({
+  const { control, handleSubmit, watch, reset } = useForm<SearchFormData>({
     resolver: zodResolver(searchSchema),
     defaultValues: {
       application_no: searchParams.get("application_no") || "",
@@ -80,7 +58,21 @@ export default function SearchPage() {
     },
   });
 
-  const formValues = watch();
+  // Reset form khi URL thay đổi
+  useEffect(() => {
+    reset({
+      application_no: searchParams.get("application_no") || "",
+      title: searchParams.get("title") || "",
+      status: searchParams.get("status") || "",
+      manager: searchParams.get("manager") || "",
+      customer_code: searchParams.get("customer_code") || "",
+      register_date: {
+        start: searchParams.get("register_date_start") || "",
+        end: searchParams.get("register_date_end") || "",
+      },
+      category: searchParams.get("category") || "",
+    });
+  }, [searchParams, reset]);
 
   const handleSearch = useCallback(
     (data: SearchFormData) => {
@@ -113,7 +105,6 @@ export default function SearchPage() {
       <Card className="mb-4">
         <Form layout="horizontal" onFinish={handleSubmit(handleSearch)}>
           <Row gutter={16}>
-            {/* Cột 1 */}
             <Col span={12}>
               <Form.Item
                 label="Application No"
@@ -128,6 +119,7 @@ export default function SearchPage() {
                       field="application_no"
                       fieldProps={field}
                       placeholder="Application No"
+                      api={selectApi}
                     />
                   )}
                 />
@@ -160,6 +152,7 @@ export default function SearchPage() {
                       field="status"
                       fieldProps={field}
                       placeholder="Status"
+                      api={selectApi}
                     />
                   )}
                 />
@@ -178,13 +171,13 @@ export default function SearchPage() {
                       field="manager"
                       fieldProps={field}
                       placeholder="Manager"
+                      api={selectApi}
                     />
                   )}
                 />
               </Form.Item>
             </Col>
 
-            {/* Cột 2 */}
             <Col span={12}>
               <Form.Item
                 label="Customer Code"
@@ -199,6 +192,7 @@ export default function SearchPage() {
                       field="customer_code"
                       fieldProps={field}
                       placeholder="Customer Code"
+                      api={selectApi}
                     />
                   )}
                 />
@@ -243,6 +237,7 @@ export default function SearchPage() {
                       field="category"
                       fieldProps={field}
                       placeholder="Category"
+                      api={selectApi}
                     />
                   )}
                 />
@@ -265,6 +260,7 @@ export default function SearchPage() {
           columns={columns}
           searchParams={searchParamsObject}
           rowKey="application_no"
+          api={searchApi}
         />
       </Card>
     </div>

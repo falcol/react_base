@@ -1,56 +1,69 @@
 import { Select, SelectProps } from "antd";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useCallback, useRef, useState } from "react";
-import { selectApi, SelectParams } from "../api/api.select";
 import { ControllerRenderProps } from "react-hook-form";
+
+export interface SelectOption {
+  label: string;
+  value: string;
+}
+
+export interface SelectResponse {
+  data: SelectOption[];
+  currentPage: number;
+  totalPages: number;
+}
+
+export interface SelectApiParams {
+  field: string;
+  page: number;
+  pageSize: number;
+  search?: string;
+}
 
 interface SelectWithSearchProps
   extends Omit<SelectProps, "options" | "loading"> {
   field: string;
   debounceTime?: number;
   fieldProps?: ControllerRenderProps;
+  api: (params: SelectApiParams) => Promise<SelectResponse>;
 }
 
 export default function SelectWithSearch({
   field,
   debounceTime = 500,
   fieldProps,
+  api,
   ...props
 }: SelectWithSearchProps) {
   const [searchValue, setSearchValue] = useState("");
-  const searchTimeout = useRef<NodeJS.Timeout>();
+  const timeoutRef = useRef<NodeJS.Timeout>();
 
   const { data, fetchNextPage, hasNextPage, isFetching, isLoading } =
     useInfiniteQuery({
       queryKey: ["select", field, searchValue],
-      queryFn: async ({ pageParam = 1, signal }) => {
-        const params: SelectParams = {
+      queryFn: ({ pageParam = 1 }) => {
+        const params: SelectApiParams = {
           field,
           page: pageParam,
           pageSize: 10,
           search: searchValue,
         };
-        return selectApi(params);
+        return api(params);
       },
-      getNextPageParam: (lastPage) => {
-        if (lastPage.currentPage < lastPage.totalPages) {
-          return lastPage.currentPage + 1;
-        }
-        return undefined;
-      },
+      getNextPageParam: ({ currentPage, totalPages }) =>
+        currentPage < totalPages ? currentPage + 1 : undefined,
     });
 
   const options = data?.pages.flatMap((page) => page.data) || [];
 
   const handleSearch = useCallback(
     (value: string) => {
-      if (searchTimeout.current) {
-        clearTimeout(searchTimeout.current);
-      }
-
-      searchTimeout.current = setTimeout(() => {
-        setSearchValue(value);
-      }, debounceTime);
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = setTimeout(
+        () => setSearchValue(value),
+        debounceTime,
+      );
     },
     [debounceTime],
   );
@@ -66,12 +79,13 @@ export default function SelectWithSearch({
         fetchNextPage();
       }
     },
-    [fetchNextPage, hasNextPage, isFetching],
+    [hasNextPage, isFetching, fetchNextPage],
   );
 
   return (
     <Select
       showSearch
+      allowClear
       loading={isLoading}
       options={options}
       onSearch={handleSearch}
