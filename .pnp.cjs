@@ -49,6 +49,7 @@ const RAW_RUNTIME_STATE =
           ["antd", "virtual:592fde0422bfa15704d195d3b4aeda711051b81887901d70a9fd96fe5f6319234bfe7a235d372abc4968a8469c19008bce3bcaab563fe1d9b0a832f1d512dda5#npm:5.24.8"],\
           ["axios", "npm:1.8.4"],\
           ["classnames", "npm:2.5.1"],\
+          ["dayjs", "npm:1.11.13"],\
           ["eslint", "virtual:592fde0422bfa15704d195d3b4aeda711051b81887901d70a9fd96fe5f6319234bfe7a235d372abc4968a8469c19008bce3bcaab563fe1d9b0a832f1d512dda5#npm:9.25.0"],\
           ["eslint-config-prettier", "virtual:592fde0422bfa15704d195d3b4aeda711051b81887901d70a9fd96fe5f6319234bfe7a235d372abc4968a8469c19008bce3bcaab563fe1d9b0a832f1d512dda5#npm:10.1.2"],\
           ["eslint-plugin-prettier", "virtual:592fde0422bfa15704d195d3b4aeda711051b81887901d70a9fd96fe5f6319234bfe7a235d372abc4968a8469c19008bce3bcaab563fe1d9b0a832f1d512dda5#npm:5.2.6"],\
@@ -6400,6 +6401,7 @@ const RAW_RUNTIME_STATE =
           ["antd", "virtual:592fde0422bfa15704d195d3b4aeda711051b81887901d70a9fd96fe5f6319234bfe7a235d372abc4968a8469c19008bce3bcaab563fe1d9b0a832f1d512dda5#npm:5.24.8"],\
           ["axios", "npm:1.8.4"],\
           ["classnames", "npm:2.5.1"],\
+          ["dayjs", "npm:1.11.13"],\
           ["eslint", "virtual:592fde0422bfa15704d195d3b4aeda711051b81887901d70a9fd96fe5f6319234bfe7a235d372abc4968a8469c19008bce3bcaab563fe1d9b0a832f1d512dda5#npm:9.25.0"],\
           ["eslint-config-prettier", "virtual:592fde0422bfa15704d195d3b4aeda711051b81887901d70a9fd96fe5f6319234bfe7a235d372abc4968a8469c19008bce3bcaab563fe1d9b0a832f1d512dda5#npm:10.1.2"],\
           ["eslint-plugin-prettier", "virtual:592fde0422bfa15704d195d3b4aeda711051b81887901d70a9fd96fe5f6319234bfe7a235d372abc4968a8469c19008bce3bcaab563fe1d9b0a832f1d512dda5#npm:5.2.6"],\

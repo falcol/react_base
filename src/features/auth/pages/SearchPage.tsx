@@ -1,5 +1,15 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button, Card, Col, DatePicker, Form, Input, Row } from "antd";
+import {
+  Button,
+  Card,
+  Checkbox,
+  Col,
+  DatePicker,
+  Form,
+  Input,
+  Row,
+} from "antd";
+import dayjs from "dayjs";
 import { useCallback, useEffect, useMemo } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useSearchParams } from "react-router-dom";
@@ -14,6 +24,7 @@ const searchSchema = z.object({
   title: z.string().optional(),
   status: z.string().optional(),
   manager: z.string().optional(),
+  all_data: z.boolean().optional(),
   customer_code: z.string().optional(),
   register_date: z
     .object({
@@ -49,6 +60,7 @@ export default function SearchPage() {
       title: searchParams.get("title") || "",
       status: searchParams.get("status") || "",
       manager: searchParams.get("manager") || "",
+      all_data: searchParams.get("all_data") === "true",
       customer_code: searchParams.get("customer_code") || "",
       register_date: {
         start: searchParams.get("register_date_start") || "",
@@ -60,16 +72,23 @@ export default function SearchPage() {
 
   // Reset form khi URL thay đổi
   useEffect(() => {
+    const registerDateStart = searchParams.get("register_date_start");
+    const registerDateEnd = searchParams.get("register_date_end");
+
     reset({
       application_no: searchParams.get("application_no") || "",
       title: searchParams.get("title") || "",
       status: searchParams.get("status") || "",
       manager: searchParams.get("manager") || "",
+      all_data: searchParams.get("all_data") === "true",
       customer_code: searchParams.get("customer_code") || "",
-      register_date: {
-        start: searchParams.get("register_date_start") || "",
-        end: searchParams.get("register_date_end") || "",
-      },
+      register_date:
+        registerDateStart || registerDateEnd
+          ? {
+              start: registerDateStart || "",
+              end: registerDateEnd || "",
+            }
+          : undefined,
       category: searchParams.get("category") || "",
     });
   }, [searchParams, reset]);
@@ -79,11 +98,11 @@ export default function SearchPage() {
       const params = new URLSearchParams();
       Object.entries(data).forEach(([key, value]) => {
         if (value) {
-          if (key === "register_date") {
+          if (key === "register_date" && typeof value === "object") {
             if (value.start) params.set("register_date_start", value.start);
             if (value.end) params.set("register_date_end", value.end);
           } else {
-            params.set(key, value);
+            params.set(key, value.toString());
           }
         }
       });
@@ -176,6 +195,22 @@ export default function SearchPage() {
                   )}
                 />
               </Form.Item>
+
+              <Form.Item
+                label="All Data"
+                labelCol={{ span: 8 }}
+                wrapperCol={{ span: 16 }}
+              >
+                <Controller
+                  name="all_data"
+                  control={control}
+                  render={({ field }) => (
+                    <Checkbox {...field} checked={field.value}>
+                      Show All Data
+                    </Checkbox>
+                  )}
+                />
+              </Form.Item>
             </Col>
 
             <Col span={12}>
@@ -206,21 +241,30 @@ export default function SearchPage() {
                 <Controller
                   name="register_date"
                   control={control}
-                  render={({ field }) => (
-                    <DatePicker.RangePicker
-                      onChange={(dates) => {
-                        if (dates) {
-                          field.onChange({
-                            start: dates[0]?.format("YYYY-MM-DD") || "",
-                            end: dates[1]?.format("YYYY-MM-DD") || "",
-                          });
-                        } else {
-                          field.onChange(null);
-                        }
-                      }}
-                      style={{ width: "100%" }}
-                    />
-                  )}
+                  render={({ field }) => {
+                    const value = field.value;
+                    const dateRange =
+                      value?.start && value?.end
+                        ? [dayjs(value.start), dayjs(value.end)]
+                        : undefined;
+
+                    return (
+                      <DatePicker.RangePicker
+                        value={dateRange}
+                        onChange={(dates) => {
+                          if (dates) {
+                            field.onChange({
+                              start: dates[0]?.format("YYYY-MM-DD") || "",
+                              end: dates[1]?.format("YYYY-MM-DD") || "",
+                            });
+                          } else {
+                            field.onChange(undefined);
+                          }
+                        }}
+                        style={{ width: "100%" }}
+                      />
+                    );
+                  }}
                 />
               </Form.Item>
 
