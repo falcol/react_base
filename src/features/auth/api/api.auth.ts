@@ -10,5 +10,6 @@ export const loginApi = async (username: string, password: string) => {
 
 export const getUserInfoApi = async () => {
   const response = await axiosPrivate.get("/me");
+  console.log(response);
   return response.data;
 };

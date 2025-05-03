@@ -6,6 +6,7 @@ import Coreui from "./Coreui";
 import Home from "./Home";
 import Profile from "./Profile";
 import ProtectedRoute from "./ProtectedRoute";
+import SearchPage from "@/features/auth/pages/SearchPage";
 
 export default function AppRouter() {
   return (
@@ -27,6 +28,7 @@ export default function AppRouter() {
           <Route path="profile" element={<Profile />} />
           <Route path="coreui" element={<Coreui />} />
           <Route path="check" element={<Check />} />
+          <Route path="search" element={<SearchPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

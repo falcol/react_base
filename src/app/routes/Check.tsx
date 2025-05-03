@@ -228,7 +228,7 @@ const Check = () => {
             <Col span={12}>
               <Form.Item
                 label="Loại Test"
-                name="discussion_category"
+                name="test_category"
                 labelCol={{ span: 5 }}
                 wrapperCol={{ span: 16 }}
               >

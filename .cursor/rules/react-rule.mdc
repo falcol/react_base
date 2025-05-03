@@ -1,0 +1,60 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+# ✅ GENERAL RULES FOR SENIOR REACT PROJECTS
+
+## 🎯 GOALS AND RECOMMENDED TOOLS
+
+| Goals | Recommended Tools |
+|----------|------------------|
+| Routing + URL sync | ✅ React Router (`useSearchParams`) |
+| Data query (search/table) | ✅ TanStack Query (`useQuery`) |
+| Debounce input | ✅ `use-debounce`, `lodash.debounce`, or custom |
+| Form control | ✅ React Hook Form |
+| Table UI | ✅ Ant Design Table, Pagination |
+| Memoization | React.memo, useMemo, useCallback|
+| State on reload/back | ✅ Sync with URL + use TanStack Query cache |
+| Lazy Loading/Suspense| React.lazy, Suspense|
+
+- Avoid anonymous functions in props if not needed.
+- placeholderData in TanStack Query to improve perceived performance.
+
+---
+
+## ⚙️ PRINCIPLES WHEN CODING
+
+### 1. **Always use the correct version declared in `package.json`**
+- Do not use features that are not supported in the current version.
+
+- If you need to use a new API, you must upgrade to a valid version.
+
+### 2. **Do not edit unrelated code**
+- When fixing bugs or refactoring, only edit the affected area.
+
+- Absolutely do not delete or rewrite logic that is running smoothly.
+
+### 3. **Code must be standard, clear and optimized according to the new standard**
+- Use React 19+ features if supported (ex: `useTransition`, `Suspense`, `lazy()`).
+
+- Use `useCallback`, `useMemo` in the right place to avoid unnecessary re-rendering.
+
+- Prioritize React Hook Form + Zod/Yup for powerful validation.
+
+### 4. **State management must have a clear strategy**
+- Separate: local UI state uses `useState`, server state uses TanStack Query.
+- Do not push everything to Context or Redux if not necessary.
+
+### 5. **Synchronize URL and State**
+- Search form or data table must keep state via URL.
+- When reloading/backing/forwarding, all data and form must remain the same.
+
+### 6. **Component must be separated reasonably**
+- UI is separated from API processing logic.
+- Table component, Form component should be reusable.
+
+### 7. **Do not hard-code URL/API**
+- Use separate configuration (ex: axios instance) or environment variable `.env`.
+
+---

@@ -34,6 +34,14 @@ export default function SideBar({ collapsed }: SidebarProps) {
             </Link>
           ),
         },
+        {
+          key: "/search",
+          label: (
+            <Link to="/search" className="custom-link">
+              search
+            </Link>
+          ),
+        },
       ],
     },
     {
