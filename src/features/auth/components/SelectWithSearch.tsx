@@ -37,7 +37,7 @@ export default function SelectWithSearch({
   ...props
 }: SelectWithSearchProps) {
   const [searchValue, setSearchValue] = useState("");
-  const timeoutRef = useRef<NodeJS.Timeout>();
+  const timeoutRef = useRef<NodeJS.Timeout | undefined>(undefined);
 
   const { data, fetchNextPage, hasNextPage, isFetching, isLoading } =
     useInfiniteQuery({
@@ -45,17 +45,21 @@ export default function SelectWithSearch({
       queryFn: ({ pageParam = 1 }) => {
         const params: SelectApiParams = {
           field,
-          page: pageParam,
+          page: pageParam as number,
           pageSize: 10,
           search: searchValue,
         };
         return api(params);
       },
-      getNextPageParam: ({ currentPage, totalPages }) =>
-        currentPage < totalPages ? currentPage + 1 : undefined,
+      getNextPageParam: (lastPage: SelectResponse) =>
+        lastPage.currentPage < lastPage.totalPages
+          ? lastPage.currentPage + 1
+          : undefined,
+      initialPageParam: 1,
     });
 
-  const options = data?.pages.flatMap((page) => page.data) || [];
+  const options =
+    data?.pages.flatMap((page: SelectResponse) => page.data) || [];
 
   const handleSearch = useCallback(
     (value: string) => {

@@ -9,7 +9,7 @@ import {
   Input,
   Row,
 } from "antd";
-import dayjs from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 import { useCallback, useEffect, useMemo } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useSearchParams } from "react-router-dom";
@@ -242,11 +242,11 @@ export default function SearchPage() {
                   name="register_date"
                   control={control}
                   render={({ field }) => {
-                    const value = field.value;
-                    const dateRange =
+                    const { value } = field;
+                    const dateRange: [Dayjs | null, Dayjs | null] | null =
                       value?.start && value?.end
                         ? [dayjs(value.start), dayjs(value.end)]
-                        : undefined;
+                        : null;
 
                     return (
                       <DatePicker.RangePicker
