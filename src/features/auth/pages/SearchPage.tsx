@@ -139,22 +139,6 @@ const SearchForm = memo(({ onSubmit, initialValues }: SearchFormProps) => {
                 )}
               />
             </Form.Item>
-
-            <Form.Item
-              label="All Data"
-              labelCol={{ span: 8 }}
-              wrapperCol={{ span: 16 }}
-            >
-              <Controller
-                name="all_data"
-                control={control}
-                render={({ field }) => (
-                  <Checkbox {...field} checked={field.value}>
-                    Show All Data
-                  </Checkbox>
-                )}
-              />
-            </Form.Item>
           </Col>
 
           <Col span={12}>
@@ -228,6 +212,19 @@ const SearchForm = memo(({ onSubmit, initialValues }: SearchFormProps) => {
                     isStaticField={true}
                     api={selectApi}
                   />
+                )}
+              />
+            </Form.Item>
+            <Form.Item
+              label="All Data"
+              labelCol={{ span: 8 }}
+              wrapperCol={{ span: 16 }}
+            >
+              <Controller
+                name="all_data"
+                control={control}
+                render={({ field }) => (
+                  <Checkbox {...field} checked={field.value}></Checkbox>
                 )}
               />
             </Form.Item>
