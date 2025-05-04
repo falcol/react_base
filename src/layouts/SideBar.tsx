@@ -67,6 +67,14 @@ export default function SideBar({ collapsed }: SidebarProps) {
             </Link>
           ),
         },
+        {
+          key: "/select-parent",
+          label: (
+            <Link to="/select-parent" className="custom-link">
+              select-parent
+            </Link>
+          ),
+        },
       ],
     },
     {

@@ -3,11 +3,11 @@ description:
 globs:
 alwaysApply: true
 ---
-# ✅ GENERAL RULES FOR SENIOR REACT PROJECTS
+# ✅ QUY TẮC CHUNG CHO CÁC DỰ ÁN REACT CẤP CAO
 
-## 🎯 GOALS AND RECOMMENDED TOOLS
+## 🎯 MỤC TIÊU VÀ CÔNG CỤ ĐƯỢC KHUYẾN NGHỊ
 
-| Goals | Recommended Tools |
+| Mục tiêu | Công cụ được đề xuất |
 |----------|------------------|
 | Routing + URL sync | ✅ React Router (`useSearchParams`) |
 | Data query (search/table) | ✅ TanStack Query (`useQuery`) |
@@ -18,43 +18,43 @@ alwaysApply: true
 | State on reload/back | ✅ Sync with URL + use TanStack Query cache |
 | Lazy Loading/Suspense| React.lazy, Suspense|
 
-- Avoid anonymous functions in props if not needed.
-- placeholderData in TanStack Query to improve perceived performance.
+- Tránh các hàm ẩn danh trong props nếu không cần thiết.
+- placeholderData trong TanStack Query để cải thiện hiệu suất nhận thức.
 
 ---
 
-## ⚙️ PRINCIPLES WHEN CODING
+## ⚙️ NGUYÊN TẮC KHI LẬP MÃ
 
-### 1. **Always use the correct version declared in `package.json`**
-- Do not use features that are not supported in the current version.
+### 1. **Luôn sử dụng đúng phiên bản được khai báo trong `package.json`**
+- Không sử dụng các tính năng không được hỗ trợ trong phiên bản hiện tại.
 
-- If you need to use a new API, you must upgrade to a valid version.
+- Nếu bạn cần sử dụng API mới, bạn phải nâng cấp lên phiên bản hợp lệ.
 
-### 2. **Do not edit unrelated code**
-- When fixing bugs or refactoring, only edit the affected area.
+### 2. **Không chỉnh sửa mã không liên quan**
+- Khi sửa lỗi hoặc tái cấu trúc, chỉ chỉnh sửa vùng bị ảnh hưởng.
 
-- Absolutely do not delete or rewrite logic that is running smoothly.
+- Tuyệt đối không xóa hoặc viết lại logic đang chạy trơn tru.
 
-### 3. **Code must be standard, clear and optimized according to the new standard**
-- Use React 19+ features if supported (ex: `useTransition`, `Suspense`, `lazy()`).
+### 3. **Mã phải chuẩn, rõ ràng và được tối ưu hóa theo tiêu chuẩn mới**
+- Sử dụng các tính năng React 19+ nếu được hỗ trợ (ví dụ: `useTransition`, `Suspense`, `lazy()`).
 
-- Use `useCallback`, `useMemo` in the right place to avoid unnecessary re-rendering.
+- Sử dụng `useCallback`, `useMemo` đúng chỗ để tránh việc render lại không cần thiết.
 
-- Prioritize React Hook Form + Zod/Yup for powerful validation.
+- Ưu tiên React Hook Form + Zod/Yup để xác thực mạnh mẽ.
 
-### 4. **State management must have a clear strategy**
-- Separate: local UI state uses `useState`, server state uses TanStack Query.
-- Do not push everything to Context or Redux if not necessary.
+### 4. **Quản lý trạng thái phải có chiến lược rõ ràng**
+- Tách biệt: trạng thái UI cục bộ sử dụng `useState`, trạng thái máy chủ sử dụng TanStack Query.
+- Không đẩy mọi thứ lên Context hoặc Redux nếu không cần thiết.
 
-### 5. **Synchronize URL and State**
-- Search form or data table must keep state via URL.
-- When reloading/backing/forwarding, all data and form must remain the same.
+### 5. **Đồng bộ hóa URL và State**
+- Biểu mẫu tìm kiếm hoặc bảng dữ liệu phải giữ trạng thái thông qua URL.
+- Khi tải lại/quay lại/chuyển tiếp, tất cả dữ liệu và biểu mẫu phải giữ nguyên.
 
-### 6. **Component must be separated reasonably**
-- UI is separated from API processing logic.
-- Table component, Form component should be reusable.
+### 6. **Thành phần phải được tách biệt hợp lý**
+- UI được tách biệt khỏi logic xử lý API.
+- Thành phần bảng, thành phần Form phải có thể tái sử dụng.
 
-### 7. **Do not hard-code URL/API**
-- Use separate configuration (ex: axios instance) or environment variable `.env`.
+### 7. **Không mã hóa cứng URL/API**
+- Sử dụng cấu hình riêng biệt (ví dụ: phiên bản axios) hoặc biến môi trường `.env`.
 
 ---

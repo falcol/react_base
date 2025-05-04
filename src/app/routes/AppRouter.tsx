@@ -1,5 +1,6 @@
 import SearchPage from "@/features/auth/pages/SearchPage";
 import SearchPage2 from "@/features/auth/pages/SearchPage2";
+import SelectParentChildPage from "@/features/auth/pages/SelectParentChildPage";
 import Layout from "@/layouts/Layout"; // Assuming you have a Layout component
 import LoginForm from "@features/auth/components/LoginForm";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -31,6 +32,7 @@ export default function AppRouter() {
           <Route path="check" element={<Check />} />
           <Route path="search" element={<SearchPage />} />
           <Route path="search2" element={<SearchPage2 />} />
+          <Route path="select-parent" element={<SelectParentChildPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
