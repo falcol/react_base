@@ -1,5 +1,7 @@
-import { Table, TableProps, Select, Pagination } from "antd";
 import { useQuery } from "@tanstack/react-query";
+import { Pagination, Select, Table, TableProps } from "antd";
+import Cookies from "js-cookie";
+import { useCallback, useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 
 export interface SearchResponse<T> {
@@ -27,8 +29,15 @@ export default function SearchTable<T extends object>({
   ...props
 }: SearchTableProps<T>) {
   const [searchParamsState, setSearchParams] = useSearchParams();
-  const page = parseInt(searchParamsState.get("page") || "1");
-  const pageSize = parseInt(searchParamsState.get("pageSize") || "50");
+
+  // Memoize page và pageSize để tránh re-render không cần thiết
+  const { page, pageSize } = useMemo(
+    () => ({
+      page: parseInt(searchParamsState.get("page") || "1"),
+      pageSize: parseInt(searchParamsState.get("pageSize") || "50"),
+    }),
+    [searchParamsState],
+  );
 
   const { data, isLoading } = useQuery({
     queryKey: ["search", { ...searchParams, page, pageSize }],
@@ -36,20 +45,32 @@ export default function SearchTable<T extends object>({
       const params: SearchApiParams = { ...searchParams, page, pageSize };
       return api(params);
     },
+    placeholderData: (previousData) => previousData,
+    enabled: !!Cookies.get("accessToken"),
+    // refetchOnWindowFocus: true,
+    // refetchOnReconnect: true,
+    staleTime: 5 * 60 * 1000, // 5 phút
+    retry: 1,
   });
 
-  const handleTableChange = ({
-    current,
-    pageSize,
-  }: {
-    current: number;
-    pageSize: number;
-  }) => {
-    const params = new URLSearchParams(searchParamsState);
-    params.set("page", current.toString());
-    params.set("pageSize", pageSize.toString());
-    setSearchParams(params);
-  };
+  // Memoize handleTableChange để tránh re-render không cần thiết
+  const handleTableChange = useCallback(
+    ({ current, pageSize }: { current: number; pageSize: number }) => {
+      const params = new URLSearchParams(searchParamsState);
+      params.set("page", current.toString());
+      params.set("pageSize", pageSize.toString());
+      setSearchParams(params);
+    },
+    [searchParamsState, setSearchParams],
+  );
+
+  // Memoize pagination info để tránh tính toán lại mỗi lần render
+  const paginationInfo = useMemo(() => {
+    if (!data?.recordTotal) return "";
+    const start = (page - 1) * pageSize + 1;
+    const end = (page - 1) * pageSize + (data?.data?.length || 0);
+    return `${start}-${end} of ${data.recordTotal} items`;
+  }, [data, page, pageSize]);
 
   return (
     <>
@@ -84,19 +105,13 @@ export default function SearchTable<T extends object>({
               </Select.Option>
             ))}
           </Select>
-          <span>
-            {data?.recordTotal
-              ? `${(page - 1) * pageSize + 1}-${
-                  (page - 1) * pageSize + (data?.data?.length || 0)
-                } of ${data.recordTotal} items`
-              : ""}
-          </span>
+          <span>{paginationInfo}</span>
         </div>
 
         <Pagination
           current={page}
           pageSize={pageSize}
-          total={data?.recordTotal} // đã lọc
+          total={data?.recordTotal}
           showSizeChanger={false}
           onChange={(newPage) =>
             handleTableChange({ current: newPage, pageSize })

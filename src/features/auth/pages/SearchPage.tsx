@@ -10,7 +10,7 @@ import {
   Row,
 } from "antd";
 import dayjs, { Dayjs } from "dayjs";
-import { useCallback, useEffect, useMemo } from "react";
+import { memo, useCallback, useEffect, useMemo } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useSearchParams } from "react-router-dom";
 import { z } from "zod";
@@ -51,11 +51,208 @@ const columns = [
   { title: "Category", dataIndex: "category", key: "category" },
 ];
 
+interface SearchFormProps {
+  onSubmit: (data: SearchFormData) => void;
+  initialValues: SearchFormData;
+}
+
+const SearchForm = memo(({ onSubmit, initialValues }: SearchFormProps) => {
+  const { control, handleSubmit, reset } = useForm<SearchFormData>({
+    resolver: zodResolver(searchSchema),
+    defaultValues: initialValues,
+  });
+
+  useEffect(() => {
+    reset(initialValues);
+  }, [initialValues, reset]);
+
+  return (
+    <Card className="mb-4">
+      <Form layout="horizontal" onFinish={handleSubmit(onSubmit)}>
+        <Row gutter={16}>
+          <Col span={12}>
+            <Form.Item
+              label="Application No"
+              labelCol={{ span: 8 }}
+              wrapperCol={{ span: 16 }}
+            >
+              <Controller
+                name="application_no"
+                control={control}
+                render={({ field }) => (
+                  <SelectWithSearch
+                    field="application_no"
+                    fieldProps={field}
+                    placeholder="Application No"
+                    api={selectApi}
+                  />
+                )}
+              />
+            </Form.Item>
+
+            <Form.Item
+              label="Title"
+              labelCol={{ span: 8 }}
+              wrapperCol={{ span: 16 }}
+            >
+              <Controller
+                name="title"
+                control={control}
+                render={({ field }) => <Input {...field} placeholder="Title" />}
+              />
+            </Form.Item>
+
+            <Form.Item
+              label="Status"
+              labelCol={{ span: 8 }}
+              wrapperCol={{ span: 16 }}
+            >
+              <Controller
+                name="status"
+                control={control}
+                render={({ field }) => (
+                  <SelectWithSearch
+                    field="status"
+                    fieldProps={field}
+                    placeholder="Status"
+                    api={selectApi}
+                  />
+                )}
+              />
+            </Form.Item>
+
+            <Form.Item
+              label="Manager"
+              labelCol={{ span: 8 }}
+              wrapperCol={{ span: 16 }}
+            >
+              <Controller
+                name="manager"
+                control={control}
+                render={({ field }) => (
+                  <SelectWithSearch
+                    field="manager"
+                    fieldProps={field}
+                    placeholder="Manager"
+                    api={selectApi}
+                  />
+                )}
+              />
+            </Form.Item>
+
+            <Form.Item
+              label="All Data"
+              labelCol={{ span: 8 }}
+              wrapperCol={{ span: 16 }}
+            >
+              <Controller
+                name="all_data"
+                control={control}
+                render={({ field }) => (
+                  <Checkbox {...field} checked={field.value}>
+                    Show All Data
+                  </Checkbox>
+                )}
+              />
+            </Form.Item>
+          </Col>
+
+          <Col span={12}>
+            <Form.Item
+              label="Customer Code"
+              labelCol={{ span: 8 }}
+              wrapperCol={{ span: 16 }}
+            >
+              <Controller
+                name="customer_code"
+                control={control}
+                render={({ field }) => (
+                  <SelectWithSearch
+                    field="customer_code"
+                    fieldProps={field}
+                    placeholder="Customer Code"
+                    api={selectApi}
+                  />
+                )}
+              />
+            </Form.Item>
+
+            <Form.Item
+              label="Register Date"
+              labelCol={{ span: 8 }}
+              wrapperCol={{ span: 16 }}
+            >
+              <Controller
+                name="register_date"
+                control={control}
+                render={({ field }) => {
+                  const { value } = field;
+                  const dateRange: [Dayjs | null, Dayjs | null] | null =
+                    value?.start && value?.end
+                      ? [dayjs(value.start), dayjs(value.end)]
+                      : null;
+
+                  return (
+                    <DatePicker.RangePicker
+                      value={dateRange}
+                      onChange={(dates) => {
+                        if (dates) {
+                          field.onChange({
+                            start: dates[0]?.format("YYYY-MM-DD") || "",
+                            end: dates[1]?.format("YYYY-MM-DD") || "",
+                          });
+                        } else {
+                          field.onChange(undefined);
+                        }
+                      }}
+                      style={{ width: "100%" }}
+                    />
+                  );
+                }}
+              />
+            </Form.Item>
+
+            <Form.Item
+              label="Category"
+              labelCol={{ span: 8 }}
+              wrapperCol={{ span: 16 }}
+            >
+              <Controller
+                name="category"
+                control={control}
+                render={({ field }) => (
+                  <SelectWithSearch
+                    field="category"
+                    fieldProps={field}
+                    placeholder="Category"
+                    isStaticField={true}
+                    api={selectApi}
+                  />
+                )}
+              />
+            </Form.Item>
+          </Col>
+        </Row>
+
+        <Row justify="end">
+          <Col>
+            <Button type="primary" htmlType="submit">
+              Search
+            </Button>
+          </Col>
+        </Row>
+      </Form>
+    </Card>
+  );
+});
+
+SearchForm.displayName = "SearchForm";
+
 export default function SearchPage() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const { control, handleSubmit, watch, reset } = useForm<SearchFormData>({
-    resolver: zodResolver(searchSchema),
-    defaultValues: {
+
+  const initialValues = useMemo(
+    () => ({
       application_no: searchParams.get("application_no") || "",
       title: searchParams.get("title") || "",
       status: searchParams.get("status") || "",
@@ -67,31 +264,9 @@ export default function SearchPage() {
         end: searchParams.get("register_date_end") || "",
       },
       category: searchParams.get("category") || "",
-    },
-  });
-
-  // Reset form khi URL thay đổi
-  useEffect(() => {
-    const registerDateStart = searchParams.get("register_date_start");
-    const registerDateEnd = searchParams.get("register_date_end");
-
-    reset({
-      application_no: searchParams.get("application_no") || "",
-      title: searchParams.get("title") || "",
-      status: searchParams.get("status") || "",
-      manager: searchParams.get("manager") || "",
-      all_data: searchParams.get("all_data") === "true",
-      customer_code: searchParams.get("customer_code") || "",
-      register_date:
-        registerDateStart || registerDateEnd
-          ? {
-              start: registerDateStart || "",
-              end: registerDateEnd || "",
-            }
-          : undefined,
-      category: searchParams.get("category") || "",
-    });
-  }, [searchParams, reset]);
+    }),
+    [searchParams],
+  );
 
   const handleSearch = useCallback(
     (data: SearchFormData) => {
@@ -121,184 +296,7 @@ export default function SearchPage() {
 
   return (
     <div className="p-4">
-      <Card className="mb-4">
-        <Form layout="horizontal" onFinish={handleSubmit(handleSearch)}>
-          <Row gutter={16}>
-            <Col span={12}>
-              <Form.Item
-                label="Application No"
-                labelCol={{ span: 8 }}
-                wrapperCol={{ span: 16 }}
-              >
-                <Controller
-                  name="application_no"
-                  control={control}
-                  render={({ field }) => (
-                    <SelectWithSearch
-                      field="application_no"
-                      fieldProps={field}
-                      placeholder="Application No"
-                      api={selectApi}
-                    />
-                  )}
-                />
-              </Form.Item>
-
-              <Form.Item
-                label="Title"
-                labelCol={{ span: 8 }}
-                wrapperCol={{ span: 16 }}
-              >
-                <Controller
-                  name="title"
-                  control={control}
-                  render={({ field }) => (
-                    <Input {...field} placeholder="Title" />
-                  )}
-                />
-              </Form.Item>
-
-              <Form.Item
-                label="Status"
-                labelCol={{ span: 8 }}
-                wrapperCol={{ span: 16 }}
-              >
-                <Controller
-                  name="status"
-                  control={control}
-                  render={({ field }) => (
-                    <SelectWithSearch
-                      field="status"
-                      fieldProps={field}
-                      placeholder="Status"
-                      api={selectApi}
-                    />
-                  )}
-                />
-              </Form.Item>
-
-              <Form.Item
-                label="Manager"
-                labelCol={{ span: 8 }}
-                wrapperCol={{ span: 16 }}
-              >
-                <Controller
-                  name="manager"
-                  control={control}
-                  render={({ field }) => (
-                    <SelectWithSearch
-                      field="manager"
-                      fieldProps={field}
-                      placeholder="Manager"
-                      api={selectApi}
-                    />
-                  )}
-                />
-              </Form.Item>
-
-              <Form.Item
-                label="All Data"
-                labelCol={{ span: 8 }}
-                wrapperCol={{ span: 16 }}
-              >
-                <Controller
-                  name="all_data"
-                  control={control}
-                  render={({ field }) => (
-                    <Checkbox {...field} checked={field.value}>
-                      Show All Data
-                    </Checkbox>
-                  )}
-                />
-              </Form.Item>
-            </Col>
-
-            <Col span={12}>
-              <Form.Item
-                label="Customer Code"
-                labelCol={{ span: 8 }}
-                wrapperCol={{ span: 16 }}
-              >
-                <Controller
-                  name="customer_code"
-                  control={control}
-                  render={({ field }) => (
-                    <SelectWithSearch
-                      field="customer_code"
-                      fieldProps={field}
-                      placeholder="Customer Code"
-                      api={selectApi}
-                    />
-                  )}
-                />
-              </Form.Item>
-
-              <Form.Item
-                label="Register Date"
-                labelCol={{ span: 8 }}
-                wrapperCol={{ span: 16 }}
-              >
-                <Controller
-                  name="register_date"
-                  control={control}
-                  render={({ field }) => {
-                    const { value } = field;
-                    const dateRange: [Dayjs | null, Dayjs | null] | null =
-                      value?.start && value?.end
-                        ? [dayjs(value.start), dayjs(value.end)]
-                        : null;
-
-                    return (
-                      <DatePicker.RangePicker
-                        value={dateRange}
-                        onChange={(dates) => {
-                          if (dates) {
-                            field.onChange({
-                              start: dates[0]?.format("YYYY-MM-DD") || "",
-                              end: dates[1]?.format("YYYY-MM-DD") || "",
-                            });
-                          } else {
-                            field.onChange(undefined);
-                          }
-                        }}
-                        style={{ width: "100%" }}
-                      />
-                    );
-                  }}
-                />
-              </Form.Item>
-
-              <Form.Item
-                label="Category"
-                labelCol={{ span: 8 }}
-                wrapperCol={{ span: 16 }}
-              >
-                <Controller
-                  name="category"
-                  control={control}
-                  render={({ field }) => (
-                    <SelectWithSearch
-                      field="category"
-                      fieldProps={field}
-                      placeholder="Category"
-                      api={selectApi}
-                    />
-                  )}
-                />
-              </Form.Item>
-            </Col>
-          </Row>
-
-          <Row justify="end">
-            <Col>
-              <Button type="primary" htmlType="submit">
-                Search
-              </Button>
-            </Col>
-          </Row>
-        </Form>
-      </Card>
-
+      <SearchForm onSubmit={handleSearch} initialValues={initialValues} />
       <Card>
         <SearchTable
           columns={columns}

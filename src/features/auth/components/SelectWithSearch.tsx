@@ -1,7 +1,9 @@
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
 import { Select, SelectProps } from "antd";
-import { useCallback, useRef, useState } from "react";
+import Cookies from "js-cookie";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ControllerRenderProps } from "react-hook-form";
+import { useDebouncedCallback } from "use-debounce";
 
 export interface SelectOption {
   label: string;
@@ -25,6 +27,7 @@ interface SelectWithSearchProps
   extends Omit<SelectProps, "options" | "loading"> {
   field: string;
   debounceTime?: number;
+  isStaticField?: boolean;
   fieldProps?: ControllerRenderProps;
   api: (params: SelectApiParams) => Promise<SelectResponse>;
 }
@@ -32,12 +35,25 @@ interface SelectWithSearchProps
 export default function SelectWithSearch({
   field,
   debounceTime = 500,
+  isStaticField = false,
   fieldProps,
   api,
   ...props
 }: SelectWithSearchProps) {
   const [searchValue, setSearchValue] = useState("");
-  const timeoutRef = useRef<NodeJS.Timeout | undefined>(undefined);
+  const queryClient = useQueryClient();
+  const initialFetchRef = useRef(false);
+
+  const debouncedSetSearchValue = useDebouncedCallback((value: string) => {
+    setSearchValue(value.trim());
+  }, debounceTime);
+
+  // Only clear queries when search value changes, not on every render
+  useEffect(() => {
+    if (!isStaticField && searchValue !== "") {
+      queryClient.removeQueries({ queryKey: ["select", field] });
+    }
+  }, [searchValue, field, queryClient, isStaticField]);
 
   const { data, fetchNextPage, hasNextPage, isFetching, isLoading } =
     useInfiniteQuery({
@@ -56,20 +72,33 @@ export default function SelectWithSearch({
           ? lastPage.currentPage + 1
           : undefined,
       initialPageParam: 1,
+      enabled:
+        !!Cookies.get("accessToken") &&
+        (initialFetchRef.current || searchValue !== ""),
+      staleTime: isStaticField ? 24 * 60 * 60 * 1000 : 5 * 60 * 1000,
+      gcTime: isStaticField ? 24 * 60 * 60 * 1000 : 5 * 60 * 1000,
+      retry: 1,
     });
 
-  const options =
-    data?.pages.flatMap((page: SelectResponse) => page.data) || [];
+  // Set the initialFetchRef to true after component mounts to ensure data is loaded on first render
+  useEffect(() => {
+    initialFetchRef.current = true;
+
+    // Cleanup function to reset ref when component unmounts
+    return () => {
+      initialFetchRef.current = false;
+    };
+  }, []);
+
+  const memoizedOptions = useMemo(() => {
+    return data?.pages.flatMap((page: SelectResponse) => page.data) || [];
+  }, [data]);
 
   const handleSearch = useCallback(
     (value: string) => {
-      clearTimeout(timeoutRef.current);
-      timeoutRef.current = setTimeout(
-        () => setSearchValue(value),
-        debounceTime,
-      );
+      debouncedSetSearchValue(value);
     },
-    [debounceTime],
+    [debouncedSetSearchValue],
   );
 
   const handlePopupScroll = useCallback(
@@ -90,10 +119,11 @@ export default function SelectWithSearch({
     <Select
       showSearch
       allowClear
-      loading={isLoading}
-      options={options}
+      loading={isFetching || isLoading}
+      options={memoizedOptions}
       onSearch={handleSearch}
       onPopupScroll={handlePopupScroll}
+      notFoundContent={isLoading ? "Loading..." : "No results"}
       filterOption={false}
       {...fieldProps}
       {...props}

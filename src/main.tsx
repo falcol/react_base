@@ -13,6 +13,7 @@ import { bootstrapThemeExtended } from "./ThemeConfig"; // Import cấu hình th
 
 import { persistor, store } from "@/stores/store";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { PersistGate } from "redux-persist/integration/react";
 
 setLogoutCallback(() => {
@@ -32,6 +33,10 @@ createRoot(document.getElementById("root")!).render(
           </PersistGate>
         </Provider>
       </ConfigProvider>
+
+      {import.meta.env.VITE_MODE == "development" && (
+        <ReactQueryDevtools initialIsOpen={false} buttonPosition="top-left" />
+      )}
     </QueryClientProvider>
   </StrictMode>,
 );
