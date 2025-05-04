@@ -15,6 +15,7 @@ const PAGE_TITLES: Record<string, string> = {
   "/": "Trang chủ",
   "/check": "Kiểm tra",
   "/search": "Tìm kiếm",
+  "/search2": "Tìm kiếm2",
   "/profile": "Hồ sơ",
   "/coreui": "CoreUI",
 };
@@ -55,6 +56,14 @@ export default function SideBar({ collapsed }: SidebarProps) {
           label: (
             <Link to="/search" className="custom-link">
               search
+            </Link>
+          ),
+        },
+        {
+          key: "/search2",
+          label: (
+            <Link to="/search2" className="custom-link">
+              search2
             </Link>
           ),
         },
