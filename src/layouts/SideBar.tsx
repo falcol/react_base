@@ -1,5 +1,6 @@
 import type { MenuProps } from "antd";
 import { Layout, Menu } from "antd";
+import { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "./Sidebar.css";
 
@@ -9,8 +10,23 @@ interface SidebarProps {
   collapsed: boolean;
 }
 
+// Map giữa path và title tương ứng
+const PAGE_TITLES: Record<string, string> = {
+  "/": "Trang chủ",
+  "/check": "Kiểm tra",
+  "/search": "Tìm kiếm",
+  "/profile": "Hồ sơ",
+  "/coreui": "CoreUI",
+};
+
 export default function SideBar({ collapsed }: SidebarProps) {
   const location = useLocation();
+
+  // Thay đổi title khi path thay đổi
+  useEffect(() => {
+    const title = PAGE_TITLES[location.pathname] || "Trang chủ";
+    document.title = `${title} | Hệ thống`;
+  }, [location.pathname]);
 
   const menuItems: MenuProps["items"] = [
     {
