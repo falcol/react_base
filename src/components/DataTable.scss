@@ -1,0 +1,248 @@
+// Import Bootstrap variables if available, otherwise define common colors
+// @import 'bootstrap/scss/variables';
+// $primary: #007bff !default; // Define if not using Bootstrap variables
+@use 'sass:color';
+
+.data-table {
+  position: relative;
+
+  &__loading-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.75);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 20;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  &__loading-overlay.show {
+    opacity: 1;
+  }
+
+  &__spinner {
+    // Use Bootstrap spinner styles directly
+  }
+
+  &__container {
+    width: 100%; // Full width of the parent
+    position: relative;
+    border: 1px solid #dee2e6; // Standard Bootstrap border color
+    // Overflow is conditionally applied via JS/class
+
+    &.data-table__scroll-x-enabled {
+      overflow-x: auto; // Enable horizontal scrolling if scrollX is true
+    }
+  }
+
+  // Vertical scroll container within the horizontal one
+  &__scroll-y {
+    overflow-y: auto; // Enable vertical scrolling
+    // max-height is set via style prop from scrollHeight
+  }
+
+  &__table {
+    width: 100%;
+    border-collapse: separate !important; // Proper styling for sticky borders
+    border-spacing: 0;
+    margin-bottom: 0; // Remove default margin from Bootstrap
+    min-width: 100%; // Ensure min-width to prevent content breakage
+
+    th,
+    td {
+      border: 1px solid #dee2e6; // Standard border
+      padding: 0.5rem; // Increased padding for better readability
+      text-align: left;
+      // white-space: nowrap; // Handled by component style now for ellipsis
+      // overflow: hidden; // Handled by component style now for ellipsis
+      // text-overflow: ellipsis; // Handled by component style now for ellipsis
+      background-color: #fff; // Default cell background
+      box-sizing: border-box; // Ensure border is included in width/height
+    }
+
+    thead th {
+      background-color: #f8f9fa; // Light gray background for header
+      position: sticky;
+      top: 0; // Stick to the top when scrolling
+      z-index: 5; // Ensure header is above body cells
+      border-bottom: 1px solid #dee2e6; // Thicker bottom border for emphasis
+    }
+
+    tbody tr:hover td {
+      background-color: rgba(0, 0, 0, 0.02) !important; // Light gray background for odd rows
+    }
+
+    tbody tr:last-child td {
+      border-bottom: 1px solid #dee2e6; // Ensure bottom border for the last row
+    }
+
+    // Striped rows
+    tbody tr:nth-child(odd) td {
+      background-color: #f9f9f9; // Light gray background for odd rows
+    }
+
+    tbody tr:nth-child(even) td {
+      background-color: #fff; // White background for even rows
+    }
+
+    // Sticky column styling
+    .sticky-col {
+      position: sticky;
+      background-color: #fff; // Default background for sticky columns
+      transition:
+        left 0.1s ease-out,
+        right 0.1s ease-out,
+        box-shadow 0.2s ease; // Smooth transitions
+
+      &.sticky-left {
+        border-right: 1px solid #dee2e6; // Add border for left sticky column
+      }
+
+      &.sticky-right {
+        border-left: 1px solid #dee2e6; // Add border for right sticky column
+      }
+
+      &.show-shadow {
+        &.sticky-left {
+          box-shadow: 5px 0 8px -6px rgba(0, 0, 0, 0.15); // Soft shadow for left sticky columns
+        }
+
+        &.sticky-right {
+          box-shadow: -5px 0 8px -6px rgba(0, 0, 0, 0.15); // Soft shadow for right sticky columns
+        }
+      }
+    }
+
+    thead .sticky-col {
+      z-index: 17; // Ensure sticky headers are above body cells
+      background-color: inherit; // Inherit background from the header
+    }
+
+    tbody .sticky-col {
+      z-index: 6; // Ensure sticky body cells are above normal cells
+    }
+
+    // For dynamic sticky column z-index based on order
+    @for $i from 0 through 10 {
+      th[data-sticky-left-index='#{$i}'],
+      td[data-sticky-left-index='#{$i}'] {
+        z-index: 16 - $i;
+      }
+
+      th[data-sticky-right-index='#{$i}'],
+      td[data-sticky-right-index='#{$i}'] {
+        z-index: 16 - $i; // Adjusted base z-index
+      }
+    }
+    // Ensure sticky headers are always above sticky body cells (higher base than tbody sticky)
+    thead th[data-sticky-left-index],
+    thead th[data-sticky-right-index] {
+      z-index: 18;
+    } // Higher than any tbody sticky z-index
+    // Reapply calculated z-index based on order for headers
+    @for $i from 0 through 10 {
+      thead th[data-sticky-left-index='#{$i}'] {
+        z-index: 18 - $i;
+      }
+      thead th[data-sticky-right-index='#{$i}'] {
+        z-index: 18 - $i;
+      }
+    }
+
+    // Styling for sortable headers
+    th.sortable {
+      cursor: pointer;
+      user-select: none; // Prevent text selection when clicking to sort
+
+      &:hover {
+        background-color: color.scale(#f8f9fa, $lightness: -5%); // Slightly darker background on hover
+      }
+    }
+
+    &__sort-icon {
+      vertical-align: middle; // Align icon with text for a neat look
+    }
+
+    &__no-data {
+      text-align: center;
+      padding: 1rem;
+      color: #6c757d; // Muted text color for no data state
+    }
+  }
+
+  // Footer container for pagination controls
+  &__footer {
+    margin-top: 1rem;
+    display: flex;
+    flex-wrap: wrap; // Allow wrapping for smaller screens
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem; // Add space between elements
+  }
+
+  // Info and page size selector group
+  &__info {
+    display: flex;
+    align-items: center;
+    gap: 1rem; // Space between elements
+  }
+
+  &__info-text {
+    font-weight: 500; // Bootstrap font weight
+  }
+
+  // Page size selector styles
+  &__page-size-selector {
+    // Use Bootstrap's built-in form-select-sm styles directly
+  }
+
+  // Pagination navigation styles
+  &__pagination-nav {
+    // Use Bootstrap pagination styles directly
+    .pagination {
+      .page-item {
+        .page-link {
+          background: #fff; /* Clean white background */
+          color: #008b9b; /* Primary color for text */
+          border: 1px solid #b3e0e5; /* Soft border matching primary color */
+          transition:
+            border-color 0.3s ease,
+            background-color 0.3s ease; /* Smooth transition */
+
+          &:hover {
+            background: #008b9b; /* Primary color background on hover */
+            color: #fff; /* White text on hover */
+            border-color: #008b9b; /* Matching border */
+          }
+
+          &:focus {
+            box-shadow: none; /* Remove default focus ring for a more subtle look */
+            outline: none;
+          }
+        }
+
+        &.active .page-link {
+          background: #008b9b; /* Active page with primary color */
+          color: #fff; /* White text for active page */
+          border-color: #008b9b; /* Matching border */
+        }
+
+        &.disabled .page-link {
+          cursor: not-allowed; /* Disable clicking on disabled page */
+          opacity: 0.5; /* Reduce opacity for disabled state */
+          background-color: #f8f9fa; /* Light grey background for disabled state */
+          border-color: #dee2e6; /* Lighter border for disabled state */
+        }
+      }
+    }
+  }
+}
+
+// Keyframes for spinner (optional if using custom spinner, not needed if using Bootstrap spinner)
+// @keyframes spin {
+//   to {
+//     transform: rotate(360deg);
+//   }
+// }
